@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>VaxNews</title>
+    <!-- plugin css for this page -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/vendors/mdi/css/materialdesignicons.min.css') }}"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/aos/dist/aos.css/aos.css') }}">
+
+
+    <!-- End plugin css for this page -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/vaccicon.png') }}">
+
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- endinject -->
+  </head>
+
+  <body>
+    <div class="container-scroller">
+      <div class="main-panel">
+        <!-- partial:partials/_navbar.html -->
+        <header id="header">
+          <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+              <div class="navbar-top">
+                
+              </div>
+              <div class="navbar-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <a class="navbar-brand" href="#"
+                      ><img src="static/assets/images/logo.png" alt="Logo"
+                    
+                    /></a>
+                  </div>
+                  
+                  <ul class="social-media">
+                    <li>
+                      
+                    </li>
+                    <li>
+                     
+                    </li>
+                    <li>
+                      
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </header>
+
+        <!-- partial -->
+        <div class="flash-news-banner">
+          <div class="container">
+            <div class="d-lg-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center">
+                <span class="badge badge-dark mr-3">COVID-19 Vaccine News</span>
+                <p class="mb-0">
+                  Bringing you the latest and most trending developements on the COVID-19 Vaccine from the past 24 hours.
+                </p>
+              </div>
+              <div class="d-flex">
+                <span class="mr-3 text-danger">{{ prtime }} UTC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content-wrapper">
+          <div class="container">
+            <div class="row" data-aos="fade-up">
+              <div class="col-xl-8 stretch-card grid-margin">
+                {% for x in topdata1 %}
+
+                <div class="position-relative">
+                   <a href=" {{x['url']}}">
+                    <img src="static/images/VaxWatch2.jpg" alt="WHO" class="img-fluid"
+                    >
+
+                   </a>
+
+                  <div class="banner-content">
+                    <div class="badge badge-danger fs-12 font-weight-bold mb-3">
+                      top news
+                    </div>
+
+                    <h2 class="mb-1">
+                        <span style=" line-height: 1.3; 
+                        padding: 2px 0; 
+                        margin: 20px auto;
+                        border-left: 20px solid black;
+                        border-right: 20px solid black;
+                        background-color: black;
+                       padding: 4px 0;
+                        color: #fff; 
+                       display: inline;
+                        margin: 0; 
+                        ">{{x["title"]}} </span>
+                    </h2>
+                    <div class="fs-12">
+                      <span class="mr-2">
+                        <h4><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);border-left: 10px solid black;
+                          border-right: 10px solid black;">-{{ x["source_name"] }} </h4> </span> </span>  <h3> 
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+              </div>
+              <div class="col-xl-4 stretch-card grid-margin">
+                <div class="card bg-dark text-white">
+                  <div class="card-body">
+                    <h2>More top news</h2>
+
+                    <div
+                      class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between"
+                    >
+                    {% for x in topdata2 %}
+
+                      <div class="pr-3">
+                        <h5>{{ x["title"] }} </h5>
+                        <div class="fs-12">
+                          <span class="mr-2">{{ x["source_name"] }} </span>{{ x["timeSince"] }}
+                        </div>
+                      </div>
+                      <div class="rotate-img">
+                        <a href=" {{x['url']}}">
+                        <img
+                          src="{{ x['urlToImage'] }}"
+                          class="img-fluid img-lg"
+                          onerror="this.src='/static/images/Alt.jpg'"
+                        />
+                        </a>
+                      </div>
+                      {% endfor %}
+
+                    </div>
+
+
+                    <div
+                      class="d-flex border-bottom-blue pb-4 pt-4 align-items-center justify-content-between"
+                    >
+                    {% for x in topdata3 %}
+
+                      <div class="pr-3">
+                        <h5>{{ x["title"] }} </h5>
+
+                        <div class="fs-12">
+                          <span class="mr-2">{{ x["source_name"] }} </span>{{ x["timeSince"] }}
+                        </div>
+                      </div>
+                      <div class="rotate-img">
+                        <a href=" {{x['url']}}">
+                        <img
+                          src="{{ x['urlToImage'] }}"
+                          class="img-fluid img-lg"
+                          onerror="this.src='/static/images/Alt.jpg'"
+                        />
+                        </a>
+                      </div>
+
+                      {% endfor %}
+
+                    </div>
+
+                    <div
+                      class="d-flex pt-4 align-items-center justify-content-between"
+                    >
+                    {% for x in topdata4 %}
+
+                      <div class="pr-3">
+                        <h5>{{ x["title"] }} </h5>
+                        <div class="fs-12">
+                          <span class="mr-2">{{ x["source_name"] }} </span>{{ x["timeSince"] }}
+                        </div>
+                      </div>
+                      <div class="rotate-img">
+                        <a href=" {{x['url']}}">
+                        <img
+                          src="{{ x['urlToImage'] }}"
+                          class="img-fluid img-lg"
+                          onerror="this.src='/static/images/Alt.jpg'"
+                        />
+                        </a>
+                      </div>
+                      {% endfor %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" data-aos="fade-up">
+              
+              <div class="col-lg-3 stretch-card grid-margin">
+              
+                <div class="card">
+
+                  <br>
+                  <p style="text-align: center;">
+                    <meta charset="utf-8">
+                </p>
+                <p style="text-align: center;"><span style="box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; color: rgb(184, 49, 47);"><strong style="box-sizing: border-box; font-weight: bolder;">BUT</strong></span><strong style="box-sizing: border-box; font-weight: bolder; color: rgb(58, 58, 58); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;">&nbsp;UNTIL THEN....</strong></p>
+                  <img src="static/assets/images/who55.gif" alt="WHO" height="auto" width="125px" class="center"
+                  />
+                  <div class="card-body">
+                   
+
+                    <p style="text-align: center; line-height: 2;"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;"><span style="color: rgb(184, 49, 47);"><strong>STAY HOME</strong></span><strong>. SAVE LIVES.</strong></span></p>
+<div class="W7Av8d" style="font-weight: bold; color: black; font-size: 14px; margin: 0px auto 18px; font-family: Roboto, arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; line-height: 2;"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;">Help stop coronavirus</span></div>
+<p style="line-height: 2; text-align: center;"><span style="font-size: 13px;"><span style="font-family: Arial, Helvetica, sans-serif;">
+            <meta charset="utf-8"></span></span></p>
+<p style="line-height: 2; text-align: center;"><span style="font-size: 13px;"><span style="font-family: Arial, Helvetica, sans-serif;">
+            <meta charset="utf-8"></span></span></p>
+<div class="WEmQFe" style="padding-bottom: 5px; color: rgb(34, 34, 34); font-family: Roboto, arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; line-height: 1.5;"><span style="font-family: Arial, Helvetica, sans-serif;"><strong><span style="color: rgb(184, 49, 47); font-size: 12px;">STAY</span></strong><span style="font-size: 12px;"> home as much as you can</span></span></div>
+<div class="WEmQFe" style="padding-bottom: 5px; color: rgb(34, 34, 34); font-family: Roboto, arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; line-height: 1.5;"><span style="font-size: 12px;"><span style="font-family: Arial, Helvetica, sans-serif;"><strong><span style="color: rgb(184, 49, 47);">KEEP</span></strong> a safe distance</span></span></div>
+<div class="WEmQFe" style="padding-bottom: 5px; color: rgb(34, 34, 34); font-family: Roboto, arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; line-height: 1.5;"><span style="font-size: 12px;"><span style="font-family: Arial, Helvetica, sans-serif;"><strong><span style="color: rgb(184, 49, 47);">WASH</span></strong> hands often<br></span></span></div>
+<div class="WEmQFe" style="padding-bottom: 5px; color: rgb(34, 34, 34); font-family: Roboto, arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; line-height: 1.5;"><span style="font-size: 12px;"><span style="font-family: Arial, Helvetica, sans-serif;"><span style="color: rgb(184, 49, 47);"><strong>COVER</strong></span> your cough<br></span></span></div>
+<div class="WEmQFe" style="padding-bottom: 5px; color: rgb(34, 34, 34); font-family: Roboto, arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; line-height: 1.5;"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><strong><span style="color: rgb(184, 49, 47);">SICK?</span></strong> Call ahead</span></div>
+<p><br></p>
+<div class="JTSYSd" style="color: rgb(95, 99, 104); font-size: 12px; margin: auto 45px auto 13px; text-align: center;"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 7px;">Source: PSA by WHO and Google</span></div>                    
+                     
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-9 stretch-card grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      {% for x in topdata510 %}
+                      <div class="col-sm-4 grid-margin">
+                        <div class="position-relative">
+                          <div class="rotate-img">
+                            <a href=" {{x['url']}}">
+                            <img src= "{{ x['urlToImage'] }}"
+                              alt="No image!"
+                              class="img-fluid"
+                              onerror="this.src='/static/images/Alt.jpg'"
+                            />
+                            </a>
+                          </div>
+                          <div class="badge-positioned">
+                            <span class="badge badge-danger font-weight-bold"
+                              >latest</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-8  grid-margin">
+                        <h2 class="mb-2 font-weight-600">
+                          {{ x['title'] }}
+                        </h2>
+                        <div class="fs-13 mb-2">
+                          <span class="mr-2">{{ x["source_name"] }} </span>{{ x["timeSince"] }}
+                        </div>
+                        <p class="mb-0">
+                          {{ x['description'] }}
+                        </p>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="row" data-aos="fade-up">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <h2 style="text-align: center;">Entities of Interest in Conversation</h2>
+                          <br> 
+                     <img src="static/images/VaxWC.png" alt="Summary Unavailable" width="1000px" height="auto" style="position: relative;  display: block;
+                     margin-left: auto;
+                     margin-right: auto;">
+               
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- main-panel ends -->
+        <!-- container-scroller ends -->
+
+        <!-- partial:partials/_footer.html -->
+        <footer>
+          <div class="footer-top">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-5">
+                  <h5 class="font-weight-normal mt-4 mb-5">
+                  </h5>
+                 
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="d-sm-flex justify-content-between align-items-center">
+                    <div class="fs-14 font-weight-600">
+                      Made by Ameya Diwan. Powered by Flask, Bootstrap, NewsAPI and Python.
+                    </div>
+                    <div class="fs-14 font-weight-600">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        <!-- partial -->
+      </div>
+    </div>
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='./assets/vendors/js/vendor.bundle.base.js')}}"></script>
+
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="{{ url_for('static', filename='./assets/vendors/aos/dist/aos.js/aos.js')}}"></script>
+
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="{{ url_for('static', filename='./assets/js/demo.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='./assets/js/jquery.easeScroll.js')}}"></script>
+    <!-- End custom js for this page-->
+  </body>
+</html>
