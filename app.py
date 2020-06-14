@@ -145,16 +145,16 @@ newStopWords = ["university","times","reuters","inc","international","organizati
 stop_words.extend(newStopWords)
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-_mask = np.array(Image.open("/Users/akndiwan/VaxNews/static/images/covidcloud.jpg").convert('RGB'))
-_mask[_mask==0]=255
+#_mask = np.array(Image.open("/Users/akndiwan/VaxNews/static/images/covidcloud.jpg").convert('RGB'))
+#_mask[_mask==0]=255
 
-wordcloud = WordCloud(background_color="white",width = 200,height = 200, stopwords = stop_words, max_words = 50,min_font_size = 3, mask=_mask, random_state=42).generate_from_frequencies(frequencies=d)
+wordcloud = WordCloud(background_color="white",width = 200,height = 200, stopwords = stop_words, max_words = 50,min_font_size = 3, random_state=42).generate_from_frequencies(frequencies=d)
 fig = plt.figure(figsize = (20,10))
-image_colors = ImageColorGenerator(_mask)
-plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation = "bilinear")
+#image_colors = ImageColorGenerator(_mask)
+plt.imshow(wordcloud,interpolation = "bilinear")
 plt.axis('off')
 plt.tight_layout(pad=0)
-plt.savefig("/Users/akndiwan/VaxNews/static/images/VaxWC.png",format="png")
+plt.savefig("static/images/VaxWC.png",format="png")
 #plt.show()
 
 
