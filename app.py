@@ -145,7 +145,7 @@ newStopWords = ["university","times","reuters","inc","international","organizati
 stop_words.extend(newStopWords)
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-_mask = np.array(Image.open("/static/images/covidcloud.jpg").convert('RGB'))
+_mask = np.array(Image.open("static/images/covidcloud.jpg").convert('RGB'))
 _mask[_mask==0]=255
 
 wordcloud = WordCloud(background_color="white",width = 200,height = 200, stopwords = stop_words, max_words = 50,min_font_size = 3, random_state=42).generate_from_frequencies(frequencies=d)
