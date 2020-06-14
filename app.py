@@ -26,8 +26,13 @@ import nltk
 from collections import Counter
 import spacy
 import en_core_web_sm
+import numpy as np
+from PIL import Image
+import nltk
 
-
+from wordcloud import ImageColorGenerator
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
 app = Flask(__name__)
 
@@ -117,6 +122,14 @@ def preprocessor(text):
         text = re.sub(r"[,@\'?\.$%_]", "", text, flags=re.I)
         text = text.replace("''", "")
         text = text.replace('"', "")
+        text = text.replace('coronavirus', "")
+        text = text.replace('june', "")
+        text = text.replace('covid', "")
+        text = text.replace('daily', "")
+        text = text.replace('news', "")
+        text = text.replace('july', "")
+        text = text.replace('first', "")
+        text = text.replace('second', "")
         return text
 
 nlp = spacy.load("en_core_web_sm")
@@ -133,22 +146,17 @@ d = {}
 for a, x in df_entities.values:
     d[a] = x
     
-import numpy as np
-from PIL import Image
-import nltk
 
-from wordcloud import ImageColorGenerator
 
 stop_words = nltk.corpus.stopwords.words('english')
 
 newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid",'coronavirus',"today","daily","million","billion","first","second","january","february","march","april","may","june","july","august","september","october","november","december"]
 stop_words.extend(newStopWords)
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
+
 _mask = np.array(Image.open("static/images/covidcloud.jpg").convert('RGB'))
 _mask[_mask==0]=255
 
-wordcloud = WordCloud(background_color="white",width = 200,height = 200, stopwords = stop_words, max_words = 50,min_font_size = 3, random_state=42).generate_from_frequencies(frequencies=d)
+wordcloud = WordCloud(background_color="white",width = 200,height = 200, stopwords = stop_words, max_words = 50,min_font_size = 3, random_state=42, mask=_mask).generate_from_frequencies(frequencies=d)
 fig = plt.figure(figsize = (20,10))
 image_colors = ImageColorGenerator(_mask)
 plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation = "bilinear")
