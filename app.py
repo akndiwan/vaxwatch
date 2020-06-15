@@ -132,36 +132,24 @@ def preprocessor(text):
         text = text.replace('second', "")
         return text
 
-nlp = spacy.load("en_core_web_sm")
-
 newsdf['clean_titles']=newsdf.title.apply(preprocessor)
-tokens = nlp(''.join(str(newsdf.clean_titles.tolist())))
-items = [x.text for x in tokens.ents]
-entities=Counter(items).most_common(50)
-
-df_entities = pd.DataFrame(entities, columns =['text', 'count'])
-df_entities=df_entities[df_entities["count"]>1]
-
-d = {}
-for a, x in df_entities.values:
-    d[a] = x
-    
-
-
 stop_words = nltk.corpus.stopwords.words('english')
 
-newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid",'coronavirus',"today","daily","million","billion","first","second","january","february","march","april","may","june","july","august","september","october","november","december"]
+
+newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid","coronavirus","today","trial","vaccines","could","trials","next","human","cancer","race","people","month","early","want","risk","science","pandemic","testing","second","says","start","phase","made","make","clinical","virus","update","update","final","treatment","research","nearly","begin","help","look","provides","kids","supply","stock","expert","doses","announces","plan","drug"]
+_mask = np.array(Image.open("static/images/wordcloud.jpg").convert('RGB'))
+_mask[_mask==0]=255
 stop_words.extend(newStopWords)
 
-_mask = np.array(Image.open("static/images/covidcloud.jpg").convert('RGB'))
-_mask[_mask==0]=255
-
-wordcloud = WordCloud(background_color="white",width = 200,height = 200, stopwords = stop_words, max_words = 50,min_font_size = 3, random_state=42, mask=_mask).generate_from_frequencies(frequencies=d)
+wordcloud2 = WordCloud(background_color="white",width = 200,height = 200, collocations=False,stopwords = stop_words, max_words = 500,min_font_size = 3, mask=_mask, random_state=42).generate(' '.join(newsdf['clean_titles']))
 fig = plt.figure(figsize = (20,10))
 image_colors = ImageColorGenerator(_mask)
-plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation = "bilinear")
+plt.imshow(wordcloud2.recolor(color_func=image_colors), interpolation = "bilinear")
 plt.axis('off')
 plt.tight_layout(pad=0)
+plt.savefig("static/images/VaxWC.png",format="png")
+
+#plt.show()
 plt.savefig("static/images/VaxWC.png",format="png")
 #plt.show()
 
