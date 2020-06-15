@@ -147,10 +147,9 @@ image_colors = ImageColorGenerator(_mask)
 plt.imshow(wordcloud2.recolor(color_func=image_colors), interpolation = "bilinear")
 plt.axis('off')
 plt.tight_layout(pad=0)
-plt.savefig("static/images/VaxWC.png",format="png")
 
 #plt.show()
-plt.savefig("static/images/VaxWC.png",format="png")
+plt.savefig("static/images/VaxWC.png",format="png",bbox_inches='tight',pad_inches = 0)
 #plt.show()
 
 
