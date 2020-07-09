@@ -29,10 +29,12 @@ import en_core_web_sm
 import numpy as np
 from PIL import Image
 import nltk
-
 from wordcloud import ImageColorGenerator
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+import requests
+import numpy as np
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -136,7 +138,7 @@ newsdf['clean_titles']=newsdf.title.apply(preprocessor)
 stop_words = nltk.corpus.stopwords.words('english')
 
 
-newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid","coronavirus","today","trial","vaccines","could","trials","next","human","cancer","race","people","month","early","want","risk","science","pandemic","testing","second","says","start","phase","made","make","clinical","virus","update","update","final","treatment","research","nearly","begin","help","look","provides","kids","supply","stock","expert","doses","announces","plan","drug","new","hundreds","ceo","end","expected","millions","year","available","data","results","protect","may","months","scientists","researchers","billion","day"]
+newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid","coronavirus","today","trial","vaccines","could","trials","next","human","cancer","race","people","month","early","want","risk","science","pandemic","testing","second","says","start","phase","made","make","clinical","virus","update","update","final","treatment","research","nearly","begin","help","look","provides","kids","supply","stock","expert","doses","announces","plan","drug","new","hundreds","ceo","end","expected","millions","year","available","data","results","protect","may","months","scientists","researchers","billion","day", "report"]
 _mask = np.array(Image.open("static/images/wordcloud.jpg").convert('RGB'))
 _mask[_mask==0]=255
 stop_words.extend(newStopWords)
@@ -152,10 +154,56 @@ plt.tight_layout(pad=0)
 plt.savefig("static/images/VaxWC.png",format="png",bbox_inches='tight',pad_inches = 0)
 #plt.show()
 
+r1 = requests.get("https://www.nytimes.com/interactive/2020/science/coronavirus-vaccine-tracker.html")
+coverpage = r1.content
+soup1 = BeautifulSoup(coverpage,'html.parser')
+
+vaccines = soup1.find_all(class_='g-list-item')
+
+
+org=[]
+txt=[]
+phases=[]
+
+vacc_track=pd.DataFrame(columns=['org','phase','text'])
+
+for i in range(0,len(vaccines)):
+    rx=vaccines[i]
+    rx=rx.text
+    rx=rx.replace('\n',' ')
+    data=[b.string for b in vaccines[i].findAll('b')]
+    data=' & '.join(', '.join(data).rsplit(', ', 1))
+    org.append(data)
+    phs=(vaccines[i].select("span[class*=phase]"))
+    temp2=""
+    for i in range(0,len(phs)):
+        temp=phs[i].text
+        temp2=temp2+" "+temp
+    phases.append(temp2)
+    rx=rx.replace(temp2,'')
+    txt.append(rx)
+
+vacc_track.org=org
+vacc_track.phase=phases
+vacc_track.text=txt
+
+preclinvacc = vacc_track[vacc_track.phase.str.contains("PRECLINICAL")].reset_index(drop=True)
+phase3vacc = vacc_track[vacc_track.phase.str.contains("PHASE III")].reset_index(drop=True)
+minusphase3= vacc_track[-(vacc_track.phase.str.contains("PHASE III"))].reset_index(drop=True)
+phase2vacc = minusphase3[minusphase3.phase.str.contains("PHASE II")].reset_index(drop=True)
+minusphase2= minusphase3[-(minusphase3.phase.str.contains("PHASE II"))].reset_index(drop=True)
+phase1vacc = minusphase2[minusphase2.phase.str.contains("PHASE I")].reset_index(drop=True)
+
+
+
+phase2vacc=json.loads(phase2vacc.to_json(orient='records'))
+phase1vacc=json.loads(phase1vacc.to_json(orient='records'))
+phase3vacc=json.loads(phase3vacc.to_json(orient='records'))
+preclinvacc=json.loads(preclinvacc.to_json(orient='records'))
 
 
 @app.route("/")
 def home():
-    return render_template('index.html', topdata1=topdata1, topdata2=topdata2, topdata3=topdata3, topdata4=topdata4, topdata510=topdata510, prtime =timestr )
+    return render_template('index.html', topdata1=topdata1, topdata2=topdata2, topdata3=topdata3, topdata4=topdata4, topdata510=topdata510, prtime =timestr,ph1vacc=phase1vacc, ph2vacc=phase2vacc,ph3vacc=phase3vacc,pcvacc=preclinvacc)
 
 

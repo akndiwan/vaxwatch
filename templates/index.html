@@ -292,6 +292,173 @@
                 </div>
               </div>
             </div>
+
+
+
+
+            <div class="content-wrapper">
+              <div class="container">
+                <div class="col-sm-12">
+                  <div class="card" data-aos="fade-up">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <h1 class="font-weight-600 mb-4">
+                            Vaccine Timeline Tracker
+                          </h1>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <h2 class="font-weight-600 mb-4">
+                            Phase 3 Trials
+                          </h2>
+                        </div>
+                      </div>
+
+
+
+                      <div class="row">
+
+                        <div class="col-lg-8">
+                          <div class="row">
+                            {% for x in ph3vacc %}
+
+                            <div class="col-sm-4 grid-margin">
+                             
+                            </div>
+                            <div class="col-sm-8 grid-margin">
+                              <h2 class="font-weight-600 mb-2">
+                                {{ x['org'] }}
+                              </h2>
+                             
+                              <p class="fs-15">
+                                {{ x['text'] }}
+                              </p>
+                            </div>
+                            {% endfor %}
+
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <h2 class="font-weight-600 mb-4">
+                                Phase 2 Trials
+                              </h2>
+                            </div>
+                          </div>
+
+
+
+
+
+
+
+                          <div class="row">
+                            {% for x in ph2vacc %}
+
+                            <div class="col-sm-4 grid-margin">
+                             
+                            </div>
+                            <div class="col-sm-8 grid-margin">
+                              <h2 class="font-weight-600 mb-2">
+                                {{ x['org'] }}
+                              </h2>
+                             
+                              <p class="fs-15">
+                                {{ x['text'] }}
+                              </p>
+                            </div>
+                            {% endfor %}
+
+                          </div>
+
+
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <h2 class="font-weight-600 mb-4">
+                                Phase 1 Trials
+                              </h2>
+                            </div>
+                          </div>
+
+
+
+
+
+                          <div class="row">
+                            {% for x in ph1vacc %}
+
+                            <div class="col-sm-4 grid-margin">
+                             
+                            </div>
+                            <div class="col-sm-8 grid-margin">
+                              <h2 class="font-weight-600 mb-2">
+                                {{ x['org'] }}
+                              </h2>
+                             
+                              <p class="fs-15">
+                                {{ x['text'] }}
+                              </p>
+                            </div>
+                            {% endfor %}
+
+                          </div>
+
+
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <h2 class="font-weight-600 mb-4">
+                                Pre-Clinical Testing
+                              </h2>
+                            </div>
+                          </div>
+
+
+
+                          <div class="row">
+                            {% for x in pcvacc %}
+
+                            <div class="col-sm-4 grid-margin">
+                             
+                            </div>
+                            <div class="col-sm-8 grid-margin">
+                              <h2 class="font-weight-600 mb-2">
+                                {{ x['org'] }}
+                              </h2>
+                             
+                              <p class="fs-15">
+                                {{ x['text'] }}
+                              </p>
+                            </div>
+                            {% endfor %}
+
+                          </div>
+                          
+                          
+                        </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
           </div>
         </div>
         <!-- main-panel ends -->
