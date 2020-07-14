@@ -138,7 +138,28 @@ newsdf['clean_titles']=newsdf.title.apply(preprocessor)
 stop_words = nltk.corpus.stopwords.words('english')
 
 
-newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid","coronavirus","today","trial","vaccines","could","trials","next","human","cancer","race","people","month","early","want","risk","science","pandemic","testing","second","says","start","phase","made","make","clinical","virus","update","update","final","treatment","research","nearly","begin","help","look","provides","kids","supply","stock","expert","doses","announces","plan","drug","new","hundreds","ceo","end","expected","millions","year","available","data","results","protect","may","months","scientists","researchers","billion","day", "report","study","need","development","complete","completes","heres","million","test","drugs","drug","potential","speed","boost","top","know","large","question","candidate","patient","talks",'patients']
+w_tokenizer = nltk.tokenize.WhitespaceTokenizer()
+lemmatizer = nltk.stem.WordNetLemmatizer()
+
+def lemmatize_text(text):
+    return [lemmatizer.lemmatize(w) for w in w_tokenizer.tokenize(text)]
+
+newsdf['clean_titles'] = newsdf['clean_titles'].apply(lemmatize_text)
+
+def listToString(s):  
+    
+    # initialize an empty string 
+    str1 = " " 
+    
+    # return string   
+    return (str1.join(s)) 
+        
+
+newsdf['clean_titles'] = newsdf['clean_titles'].apply(listToString)
+
+
+
+newStopWords = ["university","times","reuters","inc","international","organization","health","house","world","buy","pharma",'covid','sciences','hindustan','guide','institute','state','bbc','program','pharmaceuticals','innovations','cnn','grants','epidemic','respiratory','paycheck','protection','vaccine',"covid","coronavirus","today","trial","vaccines","could","trials","next","human","cancer","race","people","month","early","want","risk","science","pandemic","testing","second","says","start","phase","made","make","clinical","virus","update","update","final","treatment","research","nearly","begin","help","look","provides","kids","supply","stock","expert","doses","announces","plan","drug","new","hundreds","ceo","end","expected","millions","year","available","data","results","protect","may","months","scientists","researchers","billion","day", "report","study","need","development","complete","completes","heres","million","test","drugs","drug","potential","speed","boost","top","know","large","question","candidate","patient","talks",'patients',"use","i","ii","iii"]
 _mask = np.array(Image.open("static/images/wordcloud.jpg").convert('RGB'))
 _mask[_mask==0]=255
 stop_words.extend(newStopWords)
