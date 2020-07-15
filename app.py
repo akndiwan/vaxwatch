@@ -87,7 +87,7 @@ timeSince=[]
 for i in range(0,len(vaccnews)):
     pubtime =datetime.strptime(vaccnews.publishedAt.iloc[i], '%Y-%m-%dT%H:%M:%SZ')
     if((now-pubtime).days==0):
-        temptime="Today, "+str(math.floor(((now - pubtime).seconds)/3600))+" hours ago"
+        temptime="Today, "+str(math.floor(((now - pubtime).seconds)/3600))+" hour(s) ago"
     else:
         temptime=str((now-pubtime).days)+" day(s), "+str(math.floor(((now - pubtime).seconds)/3600))+" hours ago"
     timeSince.append(temptime)
