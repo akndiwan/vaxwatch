@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import nltk
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.snowball import SnowballStemmer
-nltk.download('wordnet')
+nltk.downgiload('wordnet')
 from nltk.stem.wordnet import WordNetLemmatizer
 nltk.download('stopwords')
 from nltk.corpus import stopwords
