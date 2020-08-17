@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import nltk
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.snowball import SnowballStemmer
-nltk.downgiload('wordnet')
+nltk.download('wordnet')
 from nltk.stem.wordnet import WordNetLemmatizer
 nltk.download('stopwords')
 from nltk.corpus import stopwords
@@ -192,7 +192,7 @@ for i in range(0,len(vaccines)):
     rx=vaccines[i]
     rx=rx.text
     rx=rx.replace('\n',' ')
-    data=[b.string for b in vaccines[i].findAll('b')]
+    data=[b.string for b in vaccines[i].findAll('strong')]
     data=' & '.join(', '.join(data).rsplit(', ', 1))
     org.append(data)
     phs=(vaccines[i].select("span[class*=phase]"))
@@ -209,11 +209,11 @@ vacc_track.phase=phases
 vacc_track.text=txt
 
 preclinvacc = vacc_track[vacc_track.phase.str.contains("PRECLINICAL")].reset_index(drop=True)
-phase3vacc = vacc_track[vacc_track.phase.str.contains("PHASE III")].reset_index(drop=True)
-minusphase3= vacc_track[-(vacc_track.phase.str.contains("PHASE III"))].reset_index(drop=True)
-phase2vacc = minusphase3[minusphase3.phase.str.contains("PHASE II")].reset_index(drop=True)
-minusphase2= minusphase3[-(minusphase3.phase.str.contains("PHASE II"))].reset_index(drop=True)
-phase1vacc = minusphase2[minusphase2.phase.str.contains("PHASE I")].reset_index(drop=True)
+phase3vacc = vacc_track[vacc_track.phase.str.contains("PHASE 3")].reset_index(drop=True)
+minusphase3= vacc_track[-(vacc_track.phase.str.contains("PHASE 3"))].reset_index(drop=True)
+phase2vacc = minusphase3[minusphase3.phase.str.contains("PHASE 2")].reset_index(drop=True)
+minusphase2= minusphase3[-(minusphase3.phase.str.contains("PHASE 2"))].reset_index(drop=True)
+phase1vacc = minusphase2[minusphase2.phase.str.contains("PHASE 1")].reset_index(drop=True)
 
 
 
